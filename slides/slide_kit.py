@@ -149,7 +149,7 @@ def number(pg, k, title, items, number, numlabel, kicker='MODUL', footer=HONESTF
     return r
 
 # ---- L7 Pagar / Risiko ----
-def risk(pg, k, title, items, kicker='PAGAR & RISIKO', footer=DEFFOOT):
+def risk(pg, k, title, items, kicker='PENGAMAN & RISIKO', footer=DEFFOOT):
     r = _topband(pg, k, kicker)
     r += [_box(k+'_cd', pg, 46, 80, 628, 252, 'ROUND_RECTANGLE'), _fill(k+'_cd', TEAL)]
     r += [_box(k+'_bg', pg, 70, 104, 40, 40, 'ROUND_RECTANGLE'), _fill(k+'_bg', TEAL_LIGHT)]
