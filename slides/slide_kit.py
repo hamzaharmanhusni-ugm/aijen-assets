@@ -205,8 +205,41 @@ def closing(pg, k, title, sub='', cta='', mode='teal', footer=DEFFOOT):
         r += [_box(k+'_ct', pg, 60, 346, 320, 30), _ins(k+'_ct', cta), _sty(k+'_ct', 13, TEAL, True, HEAD), _para(k+'_ct', 'CENTER'), _vmid(k+'_ct')]
     return r
 
+# ---- placeholder gambar (diganti screenshot saat rekam) ----
+def _ph(o, pg, x, y, w, h, label):
+    r = [_box(o, pg, x, y, w, h, 'ROUND_RECTANGLE')]
+    r += [{'updateShapeProperties': {'objectId': o, 'shapeProperties': {
+        'shapeBackgroundFill': {'solidFill': {'color': {'rgbColor': {'red': 0.93, 'green': 0.95, 'blue': 0.95}}}},
+        'outline': {'dashStyle': 'DASH', 'weight': {'magnitude': 1.5, 'unit': 'PT'},
+                    'outlineFill': {'solidFill': {'color': {'rgbColor': TEAL_LIGHT}}}, 'propertyState': 'RENDERED'}},
+        'fields': 'shapeBackgroundFill.solidFill.color,outline'}}]
+    r += [_box(o+'t', pg, x+10, y, w-20, h), _ins(o+'t', '[ ganti dengan gambar ]\n' + label),
+          _sty(o+'t', 12, GREY, False, BODY), _para(o+'t', 'CENTER'), _vmid(o+'t')]
+    return r
+
+# ---- L11 Layar penuh (screenshot) ----
+def shot(pg, k, title, desc, kicker='MODUL', caption='', footer=DEFFOOT):
+    r = _topband(pg, k, kicker) + _accent(pg, k)
+    r += [_box(k+'_ti', pg, 44, 94, 640, 40), _ins(k+'_ti', title), _sty(k+'_ti', 24, TEAL, True, HEAD)]
+    r += _ph(k+'_ph', pg, 46, 150, 628, 182, desc)
+    if caption:
+        r += [_box(k+'_cp', pg, 46, 338, 628, 22), _ins(k+'_cp', caption), _sty(k+'_cp', 12, GREY, False, BODY)]
+    r += _footer(pg, k, footer)
+    return r
+
+# ---- L12 Split: teks + screenshot ----
+def split(pg, k, title, items, desc, kicker='MODUL', footer=DEFFOOT):
+    r = _topband(pg, k, kicker) + _accent(pg, k)
+    r += [_box(k+'_ti', pg, 44, 94, 640, 40), _ins(k+'_ti', title), _sty(k+'_ti', 24, TEAL, True, HEAD)]
+    body = '\n'.join('•  ' + it for it in items)
+    r += [_box(k+'_bo', pg, 46, 158, 300, 188), _ins(k+'_bo', body), _sty(k+'_bo', 15, GREY, False, BODY), _para(k+'_bo', 'START', 180)]
+    r += _ph(k+'_ph', pg, 366, 152, 308, 188, desc)
+    r += _footer(pg, k, footer)
+    return r
+
 LAYOUTS = {'cover': cover, 'divider': divider, 'idea': idea, 'list': listing, 'framework': framework,
-           'number': number, 'risk': risk, 'diagram': diagram, 'summary': summary, 'closing': closing}
+           'number': number, 'risk': risk, 'diagram': diagram, 'summary': summary, 'closing': closing,
+           'shot': shot, 'split': split}
 
 # ---- driver (perlu run_composio_tool dari sandbox) ----
 def build_deck(title, spec):
