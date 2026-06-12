@@ -143,7 +143,7 @@ def number(pg, k, title, items, number, numlabel, kicker='MODUL', footer=HONESTF
     r += [_box(k+'_bo', pg, 46, 160, 380, 200), _ins(k+'_bo', body), _sty(k+'_bo', 15, GREY, False, BODY), _para(k+'_bo', 'START', 180)]
     r += [_box(k+'_cd', pg, 452, 150, 232, 150, 'ROUND_RECTANGLE'), _fill(k+'_cd', CARD)]
     r += [_box(k+'_ca', pg, 474, 170, 40, 4, 'RECTANGLE'), _fill(k+'_ca', TEAL_LIGHT)]
-    r += [_box(k+'_nu', pg, 470, 182, 200, 46), _ins(k+'_nu', number), _sty(k+'_nu', 34, GREEN, True, HEAD)]
+    r += [_box(k+'_nu', pg, 466, 180, 208, 50), _ins(k+'_nu', number), _sty(k+'_nu', 30, GREEN, True, HEAD), _para(k+'_nu', 'START'), _vmid(k+'_nu')]
     r += [_box(k+'_nl', pg, 472, 236, 200, 24), _ins(k+'_nl', numlabel), _sty(k+'_nl', 12, GREY, False, BODY)]
     r += _footer(pg, k, footer)
     return r
@@ -197,9 +197,9 @@ def summary(pg, k, title, items, kicker='RANGKUMAN', footer=DEFFOOT):
 def closing(pg, k, title, sub='', cta='', mode='teal', footer=DEFFOOT):
     r = [_bg(pg, TEAL), _img(k+'_wm', pg, WM, 470, 130, 360, 360), _img(k+'_lo', pg, FULL_W, 52, 34, 110, 110)]
     r += _accent(pg, k, 60, 196, 66, 6)
-    r += [_box(k+'_ti', pg, 58, 212, 600, 90), _ins(k+'_ti', title), _sty(k+'_ti', 34, WHITE, True, HEAD)]
+    r += [_box(k+'_ti', pg, 58, 206, 396, 104), _ins(k+'_ti', title), _sty(k+'_ti', 34, WHITE, True, HEAD)]
     if sub:
-        r += [_box(k+'_su', pg, 60, 300, 580, 40), _ins(k+'_su', sub), _sty(k+'_su', 16, TEAL_LIGHT, False, HEAD)]
+        r += [_box(k+'_su', pg, 60, 314, 396, 60), _ins(k+'_su', sub), _sty(k+'_su', 16, TEAL_LIGHT, False, HEAD)]
     if cta:
         r += [_box(k+'_cb', pg, 60, 346, 320, 30, 'ROUND_RECTANGLE'), _fill(k+'_cb', TEAL_LIGHT)]
         r += [_box(k+'_ct', pg, 60, 346, 320, 30), _ins(k+'_ct', cta), _sty(k+'_ct', 13, TEAL, True, HEAD), _para(k+'_ct', 'CENTER'), _vmid(k+'_ct')]
