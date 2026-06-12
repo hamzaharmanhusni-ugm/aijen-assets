@@ -242,7 +242,7 @@ LAYOUTS = {'cover': cover, 'divider': divider, 'idea': idea, 'list': listing, 'f
            'shot': shot, 'split': split}
 
 # ---- driver (perlu run_composio_tool dari sandbox) ----
-def build_deck(title, spec):
+def build_deck(title, spec, footer=None):
     c, _ = run_composio_tool(tool_slug='GOOGLESLIDES_CREATE_PRESENTATION', arguments={'title': title,
         'pageSize': {'width': {'unit': 'EMU', 'magnitude': 9144000}, 'height': {'unit': 'EMU', 'magnitude': 5143500}}})
     d = c.get('data', {}); d = d.get('data', d); pid = d.get('presentationId')
@@ -260,6 +260,8 @@ def build_deck(title, spec):
         args = dict(sp.get('args', {}))
         if 'mode' in sp:
             args['mode'] = sp['mode']
+        if footer and sp['layout'] not in ('divider', 'cover', 'closing'):
+            args.setdefault('footer', footer)
         reqs += LAYOUTS[sp['layout']](pg, 's%02d' % (i+1), **args)
     res, err = run_composio_tool(tool_slug='GOOGLESLIDES_PRESENTATIONS_BATCH_UPDATE', arguments={'presentationId': pid, 'requests': reqs})
     return {'presentationId': pid, 'pages': pages, 'n': len(reqs), 'error': err}
